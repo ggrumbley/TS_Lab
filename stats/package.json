@@ -1,0 +1,16 @@
+{
+  "name": "stats",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently npm:start:*",
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.14",
+    "concurrently": "^5.0.0",
+    "nodemon": "^2.0.1"
+  }
+}
