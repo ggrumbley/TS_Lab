@@ -1,11 +1,18 @@
-import { User } from './models/User';
+import { UserList } from './views/UserList';
 import { Collection } from './models/Collection';
+import { User } from './models/User';
+import { UserProps } from './lib/types';
 
-const user = new User({ id: 1, name: 'G$', age: 18 });
-const userNew = new User({ name: 'Gary', age: 40 });
+const USERS_URL = 'http://localhost:3000/users';
 
-user.on('save', () => {
-  console.log(user);
+const users = new Collection(USERS_URL, (json: UserProps) => User.buildUser(json));
+
+users.on('change', () => {
+  const appRoot = document.getElementById('app');
+
+  if (appRoot) {
+    new UserList(appRoot, users).render();
+  }
 });
 
-user.save();
+users.fetch();

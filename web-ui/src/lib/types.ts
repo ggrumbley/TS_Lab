@@ -22,4 +22,21 @@ export interface IEvents {
   trigger(eventName: string): void;
 };
 
+export interface ViewModel {
+  on(eventName: string, callback: Callback): void;
+}
+
+
 export type Callback = () => void;
+
+export type RegionMap = {
+  [key: string]: Element,
+}
+
+export type EventMap = {
+  [key: string]: () => void,
+}
+
+export type RegionsMap = {
+  [key: string]: string,
+}

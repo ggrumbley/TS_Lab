@@ -1,11 +1,14 @@
 import { View } from './View';
-\
-export class UserForm extends View {
+import { UserProps } from '../lib/types';
+import { User } from '../models/User';
+
+export class UserForm extends View<User, UserProps> {
 
   eventsMap = (): { [key: string]: () => void } => ({
     'mouseenter:h1': this.onHeaderHover,
     'click:.set-age': this.onSetAgeClick,
     'click:.set-name': this.onSetNameClick,
+    'click:.submit-user': this.onSubmitClick,
   })
 
   onHeaderHover = (): void => {
@@ -14,6 +17,10 @@ export class UserForm extends View {
 
   onSetAgeClick = (): void => {
     this.model.setRandomAge();
+  }
+
+  onSubmitClick = (): void => {
+    this.model.save();
   }
 
   onSetNameClick = (): void => {
@@ -27,12 +34,10 @@ export class UserForm extends View {
   template = (): string => {
     return `
       <div>
-        <h1>User Form</h1>
-        <div>User name: ${this.model.get('name')}</div>
-        <div>User age: ${this.model.get('age')}</div>
-        <input />
+        <input placeholder="${this.model.get('name')}"/>
         <button class="set-name">Update Name</button>
         <button class="set-age">Set Random Age</button>
+        <button class="submit-user">Submit</button>
       </div>
     `;
   }

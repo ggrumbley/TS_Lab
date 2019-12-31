@@ -1,12 +1,17 @@
-import { User } from '../models/User';
+import { Model } from '../models/Model';
+import { RegionMap, RegionsMap, EventMap } from '../lib/types';
+export abstract class View<T extends Model<K>, K> {
+  regions: RegionMap = {};
 
-export abstract class View {
-  constructor(public parent: Element, public model: User) {
+  constructor(public parent: Element, public model: T) {
     this.bindModel();
   }
 
-  abstract eventsMap(): { [key: string]: () => void };
   abstract template(): string;
+
+  regionsMap = (): RegionsMap => ({})
+
+  eventsMap = (): EventMap => ({})
 
   bindModel = (): void => {
     this.model.on('change', () => {
@@ -24,12 +29,30 @@ export abstract class View {
     }
   }
 
+  mapRegions = (fragment: DocumentFragment): void => {
+    const regionsMap = this.regionsMap();
+
+    for (const key in regionsMap) {
+      const selector = regionsMap[key];
+      const element = fragment.querySelector(selector);
+
+      if (element) {
+        this.regions[key] = element;
+      }
+    }
+  }
+
+  onRender = (): void => {}
+
   render = (): void => {
     this.parent.innerHTML = '';
     const template = document.createElement('template');
     template.innerHTML = this.template();
 
     this.bindEvents(template.content);
+    this.mapRegions(template.content);
+
+    this.onRender();
     this.parent.append(template.content);
   }
 }
