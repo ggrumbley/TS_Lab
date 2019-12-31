@@ -1,0 +1,11 @@
+{
+  "name": "ChapterTwo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.7.1",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
+}
