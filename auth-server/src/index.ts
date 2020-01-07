@@ -1,9 +1,16 @@
 import express, { Request, Response } from 'express';
-import { router } from './routes';
+import bodyParser from 'body-parser';
+import cookieSession from 'cookie-session';
+import 'reflect-metadata';
+import { AppRouter } from './AppRouter';
+import './controllers/LoginController';
+import './controllers/RootController';
 
 const app = express();
 
-app.use(router);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieSession({ keys: ['poop'] }));
+app.use(AppRouter.getInstance());
 
 app.listen(3000, () => {
   console.log('🚀 === Listening On ==== 🚀');
