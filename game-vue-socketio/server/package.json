@@ -1,0 +1,33 @@
+{
+  "name": "game-vue-socketio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node --extensions '.ts,.js' ./app.ts -L",
+    "ts:check": "tsc --build tsconfig.json",
+    "build": "babel src -d dist --extensions '.js,.ts' --ignore **/*.test.js,**/*.test.ts",
+    "clean": "rm -rf dist",
+    "start-compiled": "node ./dist/index.js",
+    "version": "echo $npm_package_version"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/plugin-transform-spread": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.11.1",
+    "@types/socket.io": "^2.1.4",
+    "nodemon": "^2.0.3",
+    "typescript": "^3.8.3"
+  }
+}
