@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec babel-node --extensions '.ts,.js' ./app.ts -L",
-    "ts:check": "tsc --build tsconfig.json",
+    "test": "npm run test:check-types",
+    "test:check-types": "tsc --build tsconfig.json",
     "build": "babel src -d dist --extensions '.js,.ts' --ignore **/*.test.js,**/*.test.ts",
     "clean": "rm -rf dist",
     "start-compiled": "node ./dist/index.js",
