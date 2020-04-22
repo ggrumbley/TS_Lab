@@ -62,14 +62,19 @@ const moveOtherPlayers = (scene, playerInfo) => {
 };
 
 function preload() {
+  this.load.image('space', 'assets/deep-space.jpg');
   this.load.image('ship', 'assets/spaceShip.png');
   this.load.image('otherPlayer', 'assets/enemyBlack5.png');
+  this.load.image('star', 'assets/star_gold.png');
   this.load;
 }
 
 function create() {
   const scene = this;
   this.socket = io();
+
+  this.add.tileSprite(0, 0, 1800, 1800, 'space');
+
   this.otherPlayers = this.physics.add.group();
 
   this.socket.on('currentPlayers', (players) => {
@@ -99,6 +104,28 @@ function create() {
   });
 
   this.cursors = this.input.keyboard.createCursorKeys();
+
+  this.blueScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#0000FF' });
+  this.redScoreText = this.add.text(584, 16, '', { fontSize: '32px', fill: '#FF0000' });
+
+  this.socket.on('scoreUpdate', (scores) => {
+    scene.blueScoreText.setText('Blue: ' + scores.blue);
+    scene.redScoreText.setText('Red: ' + scores.red);
+  });
+
+  this.socket.on('starLocation', (starLocation) => {
+    if (scene.star) scene.star.destroy();
+    scene.star = scene.physics.add.image(starLocation.x, starLocation.y, 'star');
+    scene.physics.add.overlap(
+      scene.ship,
+      scene.star,
+      () => {
+        this.socket.emit('starCollected');
+      },
+      null,
+      scene
+    );
+  });
 }
 
 function update() {
