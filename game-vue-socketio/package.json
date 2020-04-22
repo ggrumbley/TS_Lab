@@ -1,0 +1,11 @@
+{
+  "name": "game-vue-socketio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn start:server & yarn start:client",
+    "start:server": "yarn --cwd server/ run start",
+    "start:client": "yarn --cwd client/ run serve"
+  }
+}
