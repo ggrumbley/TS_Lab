@@ -4,12 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node --extensions '.ts,.js' ./app.ts -L",
+    "start": "nodemon --exec babel-node --extensions '.ts,.js' ./src/server.ts",
     "test": "npm run test:check-types",
     "test:check-types": "tsc --build tsconfig.json",
     "build": "babel src -d dist --extensions '.js,.ts' --ignore **/*.test.js,**/*.test.ts",
     "clean": "rm -rf dist",
-    "start-compiled": "node ./dist/index.js",
+    "start-compiled": "node ./dist/server.js",
     "version": "echo $npm_package_version"
   },
   "dependencies": {
