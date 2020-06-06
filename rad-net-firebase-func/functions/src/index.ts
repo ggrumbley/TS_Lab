@@ -29,6 +29,9 @@ export const getDoots = functions.https.onRequest((req, res) => {
 });
 
 export const createDoot = functions.https.onRequest((req, res) => {
+  if (req.method !== "POST")
+    return res.status(400).json({ error: "Method not allowed" });
+
   const newDoot = {
     body: req.body.body,
     userName: req.body.userName,
