@@ -12,10 +12,6 @@ interface Doot {
   userName: string;
 }
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello world!");
-});
-
 export const getDoots = functions.https.onRequest((req, res) => {
   admin
     .firestore()
@@ -30,4 +26,24 @@ export const getDoots = functions.https.onRequest((req, res) => {
       return res.json(doots);
     })
     .catch((err) => console.error(err));
+});
+
+export const createDoot = functions.https.onRequest((req, res) => {
+  const newDoot = {
+    body: req.body.body,
+    userName: req.body.userName,
+    createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+  };
+
+  admin
+    .firestore()
+    .collection("doots")
+    .add(newDoot)
+    .then((doc) => {
+      res.json({ message: `document ${doc.id} created successfully` });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "something blew up" });
+      console.error(err);
+    });
 });
