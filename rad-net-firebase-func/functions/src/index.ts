@@ -1,17 +1,18 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
+import * as firebase from 'firebase';
 
 const app = express();
 
 const config = {
-  apiKey: 'AIzaSyAhG_tcWTU2kGFFgKVLgNr5v11ikSM6m9k',
-  authDomain: 'rad-net.firebaseapp.com',
-  databaseURL: 'https://rad-net.firebaseio.com',
-  projectId: 'rad-net',
-  storageBucket: 'rad-net.appspot.com',
-  messagingSenderId: '324902657536',
-  appId: '1:324902657536:web:b96e114de628fa92cf82e5',
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  databaseURL: process.env.databaseURL,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
 };
 
 admin.initializeApp(config);
@@ -63,4 +64,15 @@ app.post('/doot', (req, res) => {
     });
 });
 
+app.post('/signup', (req, res) => {
+  const newUser = {
+    email: req.body.email,
+    name: req.body.name,
+    password: req.body.password,
+    confirmPassword: req.body.confirmPassword,
+  };
+  // TODO: Validate Data
+
+  firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+});
 export const api = functions.https.onRequest(app);
