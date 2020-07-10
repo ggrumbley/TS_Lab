@@ -1,0 +1,30 @@
+###############################################
+### Users
+###############################################
+
+### User Registration
+POST http://localhost:8000/api/register
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@aol.com",
+  "password": "test"
+}
+
+
+### User Login
+
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "email": "test@aol.com",
+  "password": "test"
+}
+
+# @token = PUT_ACCESS_TOKEN_HERE
+
+###############################################
+### SURVEYS
+###############################################
