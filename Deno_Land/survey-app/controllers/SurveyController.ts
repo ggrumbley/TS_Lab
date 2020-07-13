@@ -4,7 +4,7 @@ import {
 
 class SurveyController {
   async getAllForUser(ctx: RouterContext) {
-
+    ctx.response.body = [];
   }
 
   async getSingle(ctx: RouterContext) {
@@ -12,7 +12,7 @@ class SurveyController {
   }
 
   async create(ctx: RouterContext) {
-
+    const { value: { name, description } } = await ctx.request.body();
   }
 
   async update(ctx: RouterContext) {

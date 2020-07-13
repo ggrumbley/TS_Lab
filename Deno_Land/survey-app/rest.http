@@ -28,3 +28,32 @@ Content-Type: application/json
 ###############################################
 ### SURVEYS
 ###############################################
+
+### Get All Surveys For User
+GET http://localhost:8000/api/survey
+
+### Get Single Survey
+GET http://localhost:8000/api/survey/id
+
+### Create Survey
+POST http://localhost:8000/api/survey
+Content-Type: application/json
+
+{
+  "name": "Survey 1",
+  "description": "Cool survey, bro!"
+}
+
+### Update Survey
+PUT http://localhost:8000/api/survey/{{id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Deno Fail",
+  "description": "Cool stuff"
+}
+
+### Delete the survey
+DELETE http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
+Authorization: Bearer {{token}}
